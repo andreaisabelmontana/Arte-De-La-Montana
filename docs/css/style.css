@@ -49,12 +49,12 @@ img { max-width: 100%; display: block; }
     background: transparent;
 }
 .brand-bear img {
-    /* PNG is tightly cropped to the bear. Face sits in the upper-left ~third,
-       so a zoom + offset lands it dead-centre in the circle. */
-    width: 160%;
-    height: 160%;
+    /* PNG shows the full bear in landscape; the head sits center-left.
+       Zoom in + shift the visible window rightward so the head lands centered. */
+    width: 200%;
+    height: 200%;
     object-fit: cover;
-    object-position: 30% 18%;
+    object-position: 42% 22%;
     display: block;
 }
 
