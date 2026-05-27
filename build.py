@@ -142,7 +142,9 @@ def nav_html(active: str, prefix: str = "") -> str:
     return f"""
 <header class="site-header">
   <a href="{prefix}index.html" class="brand" aria-label="Arte de la Montaña — home">
-    <img src="{prefix}assets/website-main-title.png" alt="Arte de la Montaña">
+    <span class="brand-bear">
+      <img src="{prefix}assets/andean-bear-icon.png" alt="Arte de la Montaña">
+    </span>
   </a>
   <nav class="site-nav">
     {link('index.html',      'Home',       'home')}
