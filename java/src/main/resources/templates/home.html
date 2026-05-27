@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arte de la Montaña</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="image/png" th:href="@{/assets/andean-bear-icon.png}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: site-header('home')}"></div>
+
+<section class="hero">
+    <img class="hero-img" th:src="@{/assets/landing.png}" alt="">
+    <img class="hero-title" th:src="@{/assets/website-main-title.png}" alt="Arte de la Montaña">
+</section>
+
+<main class="home">
+    <section th:each="entry : ${grouped}" class="category">
+        <h2 th:text="${entry.key.label}">Paintings</h2>
+        <div class="grid">
+            <a th:each="art : ${entry.value}"
+               th:href="@{'/artwork/' + ${art.slug}}"
+               th:class="${'card size-' + art.sizeKey}">
+                <img th:src="@{${art.assetPath}}" th:alt="${art.title}">
+                <div class="caption">
+                    <span class="title" th:text="${art.title}">Title</span>
+                    <span class="meta">
+                        <span th:text="${art.year}">2026</span> ·
+                        <span th:text="${art.medium}">acrylic</span>
+                    </span>
+                </div>
+            </a>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments/header :: site-footer}"></div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'Arte de la Montaña'">Arte de la Montaña</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="image/png" th:href="@{/assets/andean-bear-icon.png}">
+</head>
+<body th:fragment="layout(content)">
+<header class="site-header">
+    <a th:href="@{/}" class="brand">
+        <img th:src="@{/assets/website-main-title.png}" alt="Arte de la Montaña">
+    </a>
+    <nav class="site-nav">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/collection}">Collection</a>
+        <a th:href="@{/andrea}">Andrea</a>
+        <a th:href="@{/sketches}">Sketches</a>
+        <a th:href="@{/customize}">Customize</a>
+    </nav>
+</header>
+
+<main>
+    <div th:replace="${content}">content</div>
+</main>
+
+<footer class="site-footer">
+    <img th:src="@{/assets/footer.png}" alt="">
+    <p class="quiet">© Arte de la Montaña</p>
+</footer>
+</body>
+</html>

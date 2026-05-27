@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin · Payment link</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="admin">
+    <h1>Generate payment link</h1>
+    <p class="quiet">Internal tool. Mints a Stripe payment link for a buyer after an inquiry.</p>
+
+    <form id="f" class="form">
+        <label>
+            Artwork
+            <select name="slug" required>
+                <option th:each="a : ${artworks}" th:value="${a.slug}"
+                        th:text="${a.title + ' — ' + a.year + ' · ' + a.medium + ' · ' + a.size}"></option>
+            </select>
+        </label>
+        <label>
+            Amount (in cents, e.g. 25000 for $250.00)
+            <input type="number" name="amountCents" min="100" step="1" required>
+        </label>
+        <label>
+            Buyer email (optional, attached as metadata)
+            <input type="email" name="buyerEmail">
+        </label>
+        <button type="submit" class="btn">Create link</button>
+    </form>
+
+    <pre id="out" class="quiet"></pre>
+</main>
+
+<script>
+    document.getElementById('f').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const secret = prompt('Admin secret:');
+        if (!secret) return;
+        const res = await fetch('/admin/payment-link', {
+            method: 'POST',
+            headers: {'X-Admin-Secret': secret},
+            body: new URLSearchParams(fd)
+        });
+        const data = await res.json();
+        document.getElementById('out').textContent = JSON.stringify(data, null, 2);
+    });
+</script>
+</body>
+</html>

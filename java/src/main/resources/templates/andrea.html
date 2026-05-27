@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Andrea — Arte de la Montaña</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="image/png" th:href="@{/assets/andean-bear-icon.png}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: site-header('andrea')}"></div>
+
+<main class="andrea">
+    <section class="intro">
+        <img class="comic" th:src="@{/assets/comic-life.png}" alt="">
+        <div class="signature-block">
+            <img class="signature" th:src="@{/assets/signature.png}" alt="Andrea">
+            <p>Art has always been how I make sense of things before I have the words for them. Every painting is a question I didn't know I was asking.</p>
+            <p>Working across acrylics, oils, and pencil, to express cultural symbolism, cityscapes, and pop art. It is the language of the soul, and how I make sense of this beautiful world.</p>
+        </div>
+    </section>
+
+    <section class="bio">
+        <div class="bio-text">
+            <p>Andrea Montaña Lamus is a Computer Science and Artificial Intelligence student, and a visual artist with roots in Colombia and Venezuela. Her art portfolio was accepted into Parsons School of Design, developed under the mentorship of Lina Sinisterra, recognized as a top 50 AP Art instructor by the CollegeBoard.</p>
+        </div>
+        <img class="bio-photo" th:src="@{/assets/self-portrait-gallery.png}" alt="Andrea in the gallery">
+    </section>
+</main>
+
+<div th:replace="~{fragments/header :: site-footer}"></div>
+</body>
+</html>
