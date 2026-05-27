@@ -54,7 +54,7 @@ img { max-width: 100%; display: block; }
     width: 200%;
     height: 200%;
     object-fit: cover;
-    object-position: 42% 22%;
+    object-position: 20% 22%;
     display: block;
 }
 
