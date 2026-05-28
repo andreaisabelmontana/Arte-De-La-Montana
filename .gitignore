@@ -1,15 +1,7 @@
-# Maven
-java/target/
-*.class
-
-# Python
-__pycache__/
-*.pyc
-
-# IDE
+# Editor / IDE
 .idea/
-*.iml
 .vscode/
+*.iml
 .project
 .classpath
 .settings/
@@ -21,6 +13,9 @@ Thumbs.db
 # Logs
 *.log
 
+# Local tooling
+.claude/
+
 # Secrets — never commit
 .env
-.env.*
+.env.local
