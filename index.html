@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arte de la Montaña</title>
+  <link rel="icon" href="assets/andean-bear-icon.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header id="topbar">
+    <a href="#gallery" class="brand">
+      <img src="assets/andean-bear-icon.png" alt="" />
+      <span>Arte de la Montaña</span>
+    </a>
+    <nav>
+      <a href="#gallery" data-view="gallery" class="active">Gallery</a>
+      <a href="#about"   data-view="about">About</a>
+      <a href="#order"   data-view="order">Order</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ====================  GALLERY  ==================== -->
+    <section id="view-gallery" class="view active">
+      <div class="hero">
+        <img class="hero-title" src="assets/website-main-title.png" alt="Arte de la Montaña" />
+        <img class="hero-subtitle" src="assets/subtitle.png" alt="" />
+      </div>
+      <div class="grid" id="gallery-grid"></div>
+    </section>
+
+    <!-- ====================  ABOUT  ==================== -->
+    <section id="view-about" class="view">
+      <div class="about-hero">
+        <img src="assets/landing.png" alt="" class="about-landing" />
+        <img src="assets/title.png" alt="" class="about-title" />
+      </div>
+
+      <div class="about-body">
+        <img src="assets/self-portrait-gallery.png" alt="Self portrait" class="about-portrait" />
+        <div>
+          <p>
+            Arte de la Montaña is the personal studio of <strong>Pelusa Montaña</strong>,
+            a painter working across acrylic, oil, pen, pencil, alcohol marker and pastel.
+            The catalogue gathers studies and finished pieces made between 2020 and 2026 —
+            from quick pen sketches in Tokyo to large acrylic canvases of Caracas, Bogotá
+            and Venezia.
+          </p>
+          <p>
+            Every piece in this gallery is real, painted by hand, and lives in the studio
+            until it finds a home. Use the <a href="#order" data-view="order">Order</a>
+            page to enquire about any of them.
+          </p>
+        </div>
+      </div>
+
+      <div class="strip">
+        <img src="assets/mafalda-1.png" alt="" />
+        <img src="assets/mafalda-2.png" alt="" />
+        <img src="assets/mafalda-3.png" alt="" />
+        <img src="assets/mafalda-4.png" alt="" />
+      </div>
+
+      <div class="about-row">
+        <img src="assets/comic-life.png" alt="" />
+        <div>
+          <h3>Influences</h3>
+          <p>
+            From childhood readings of Mafalda to long walks through Andean towns,
+            the work draws on travel, family stories and the textures of paper,
+            canvas and ceramic. Animal subjects recur — the sloth, the ladybug,
+            the Andean bear that gives this site its mark.
+          </p>
+          <img src="assets/self-portrait-stencil.png" alt="" class="stencil" />
+        </div>
+      </div>
+
+      <div class="design-notes">
+        <img src="assets/buttons-example.png" alt="" />
+        <p>
+          A note on craft — every sticker, button and stencil in this catalogue
+          (including the marks scattered through this page) is hand-drawn before
+          it is scanned in. Even the navigation here uses no SVG icons, just the
+          studio's own ink.
+        </p>
+      </div>
+
+      <div class="signature-row">
+        <img src="assets/signature.png" alt="signature" />
+      </div>
+    </section>
+
+    <!-- ====================  STUDIO (hidden — reach via #studio) ==================== -->
+    <section id="view-studio" class="view">
+      <div id="studio-body"></div>
+    </section>
+
+    <!-- ====================  ORDER  ==================== -->
+    <section id="view-order" class="view">
+      <h2>Order a piece</h2>
+      <p class="lede">
+        Pick one or more works from the list below. Submit the form and the
+        studio will reply to your e-mail with availability, framing and shipping
+        options. No payment is taken here.
+      </p>
+
+      <form id="order-form" novalidate>
+        <div class="form-grid">
+          <label>Your name
+            <input name="customer" required minlength="2" />
+          </label>
+          <label>E-mail
+            <input name="email" type="email" required />
+          </label>
+          <label>Phone (optional)
+            <input name="phone" />
+          </label>
+          <label>Shipping country
+            <input name="country" placeholder="e.g. Spain" />
+          </label>
+          <label class="full">Pieces you are interested in
+            <select name="pieces" id="order-pieces" multiple required size="10"></select>
+            <small>Hold ⌘ / Ctrl to select multiple.</small>
+          </label>
+          <label class="full">Message
+            <textarea name="message" rows="4" placeholder="Anything we should know — framing, dimensions, deadline…"></textarea>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="reset">Clear</button>
+          <button class="primary" type="submit">Send enquiry</button>
+        </div>
+      </form>
+
+      <h3>Recent enquiries</h3>
+      <p class="hint">Stored locally in your browser so you can come back to them.</p>
+      <ol id="order-history" class="orders"></ol>
+    </section>
+  </main>
+
+  <footer>
+    <img src="assets/footer.png" alt="" class="footer-img" />
+    <p>Arte de la Montaña · Pelusa Montaña · studio enquiries via the Order page</p>
+  </footer>
+
+  <!-- Detail modal -->
+  <div id="modal-root" hidden>
+    <div class="modal-backdrop"></div>
+    <div class="modal" role="dialog" aria-modal="true">
+      <button id="modal-close" aria-label="Close">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="toast-root"></div>
+
+  <script src="js/exceptions.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/dao.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
