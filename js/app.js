@@ -131,7 +131,16 @@ const OrderUI = {
       `<option value="${a.id}" ${this._preselect.has(a.id) ? 'selected' : ''}>${escapeHtml(a.title)} — ${a.year} · ${escapeHtml(a.medium)}</option>`
     ).join('');
     this._preselect.clear();
+    this._applyMode();
     this._renderHistory();
+  },
+  _applyMode() {
+    const form = $('#order-form');
+    if (!form) return;
+    const mode = form.elements['mode'] ? form.elements['mode'].value : 'existing';
+    form.querySelectorAll('[data-mode-field]').forEach(el => {
+      el.hidden = el.dataset.modeField !== mode;
+    });
   },
   _renderHistory() {
     const list = $('#order-history');
@@ -144,31 +153,43 @@ const OrderUI = {
       <li>
         <div><strong>${escapeHtml(o.customer)}</strong> · <span class="meta">${escapeHtml(o.email)}</span></div>
         <div class="meta">${new Date(o.createdAt).toLocaleString()}</div>
-        <div class="pieces"><strong>Pieces:</strong> ${o.pieceTitles.map(escapeHtml).join(' · ')}</div>
+        <div class="pieces"><strong>${o.mode === 'custom' ? 'Request:' : 'Pieces:'}</strong> ${o.pieceTitles.map(escapeHtml).join(' · ')}</div>
+        ${o.references && o.references.length ? `<div class="pieces"><strong>References:</strong> ${o.references.map(escapeHtml).join(' · ')}</div>` : ''}
         ${o.message ? `<div class="pieces"><strong>Note:</strong> ${escapeHtml(o.message)}</div>` : ''}
       </li>`).join('');
   },
   submit(form) {
     const fd = new FormData(form);
+    const mode = String(fd.get('mode') || 'existing');
     const pieces = Array.from(form.elements['pieces'].selectedOptions).map(o => o.value);
+    const fileInput = form.elements['references'];
+    const references = fileInput && fileInput.files ? Array.from(fileInput.files).map(f => f.name) : [];
     try {
       const customer = String(fd.get('customer') || '').trim();
       const email    = String(fd.get('email') || '').trim();
       if (customer.length < 2) throw new Ex.ValidationException('Please tell us your name', 'customer');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Ex.ValidationException('A valid e-mail is required', 'email');
-      if (pieces.length === 0) throw new Ex.ValidationException('Pick at least one piece', 'pieces');
 
-      const pieceTitles = pieces.map(id => {
-        const a = gallery.get(id);
-        return `${a.title} (${a.year})`;
-      });
+      let pieceTitles;
+      if (mode === 'custom') {
+        if (references.length === 0) throw new Ex.ValidationException('Upload at least one reference image for your personalized piece', 'references');
+        pieceTitles = ['Personalized commission'];
+      } else {
+        if (pieces.length === 0) throw new Ex.ValidationException('Pick at least one piece', 'pieces');
+        pieceTitles = pieces.map(id => {
+          const a = gallery.get(id);
+          return `${a.title} (${a.year})`;
+        });
+      }
       const order = {
         id: crypto.randomUUID(),
         customer, email,
         phone:   String(fd.get('phone')   || '').trim(),
         country: String(fd.get('country') || '').trim(),
         message: String(fd.get('message') || '').trim(),
-        pieces, pieceTitles,
+        mode,
+        pieces: mode === 'custom' ? [] : pieces,
+        pieceTitles, references,
         createdAt: new Date().toISOString(),
       };
       // Persist via the same DAO contract used everywhere else.
@@ -413,6 +434,9 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#order-form').addEventListener('submit', ev => {
     ev.preventDefault();
     OrderUI.submit(ev.currentTarget);
+  });
+  $('#order-form').addEventListener('change', ev => {
+    if (ev.target.name === 'mode') OrderUI._applyMode();
   });
   $('#order-form').addEventListener('reset', () => {
     setTimeout(() => OrderUI.render(), 0);

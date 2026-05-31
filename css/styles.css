@@ -3,7 +3,7 @@
  * Three sections: Gallery / About / Order. No price, no role chrome.
  * --------------------------------------------------------------------- */
 :root {
-  --bg:      #f6f1e7;
+  --bg:      #ffffff;
   --paper:   #fffdf6;
   --ink:     #221d18;
   --ink-2:   #5a5145;
@@ -15,10 +15,7 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  background:
-    url('../assets/yellow-watercolor.png') no-repeat center -120px / 100% auto fixed,
-    url('../assets/yellow-wallpaper.png') repeat top left / 600px auto,
-    var(--bg);
+  background: var(--bg);
   color: var(--ink);
   font: 16px/1.55 "Inter", "Segoe UI", system-ui, sans-serif;
   min-height: 100vh;
@@ -59,8 +56,21 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
 
 /* ============================  GALLERY  ============================== */
 .hero { text-align: center; margin-bottom: 3rem; }
-.hero-title { max-width: 520px; width: 80%; display: block; margin: 0 auto 1rem; }
+.hero-banner-wrap { position: relative; margin-bottom: 1.5rem; }
+.hero-banner {
+  display: block; width: 100%; max-height: 360px; object-fit: cover;
+  border: 1px solid var(--line);
+}
+.hero-title {
+  position: absolute; left: 5%; top: 50%; transform: translateY(-50%);
+  width: 46%; max-width: 460px; margin: 0;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.25));
+}
 .hero-subtitle { max-width: 360px; width: 60%; opacity: .85; }
+
+@media (max-width: 500px) {
+  .hero-title { width: 60%; left: 4%; }
+}
 
 .grid {
   display: grid;
@@ -89,14 +99,13 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
 
 /* ============================  ABOUT  ================================ */
 #view-about {
-  background: url('../assets/cream-layout.png') top center / cover no-repeat;
+  background: var(--bg);
   padding-top: 3rem;
 }
 .about-hero {
-  display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 2rem; margin-bottom: 2.5rem;
+  display: flex; justify-content: center; align-items: center; margin-bottom: 2.5rem;
 }
-.about-landing { width: 100%; border: 1px solid var(--line); }
-.about-title   { width: 100%; max-width: 320px; justify-self: center; }
+.about-subtitle { width: 60%; max-width: 320px; }
 
 .about-body {
   display: grid; grid-template-columns: 280px 1fr; gap: 2rem; align-items: center;
@@ -129,6 +138,15 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
 }
 
 /* ============================  ORDER  ================================ */
+.order-title { display: block; width: 60%; max-width: 300px; margin: 0 0 1rem; }
+.order-mode {
+  display: flex; flex-wrap: wrap; gap: 1.5rem; border: none; margin: 0 0 1.4rem; padding: 0;
+}
+.order-mode label {
+  display: flex; align-items: center; gap: .45rem; font-size: .95rem; color: var(--ink); cursor: pointer;
+}
+.order-mode input { accent-color: var(--accent); }
+#order-references { font: inherit; color: var(--ink-2); }
 #view-order h2 { font-size: 2rem; margin-bottom: .25rem; }
 #view-order .lede { color: var(--ink-2); margin-bottom: 2rem; }
 
@@ -142,6 +160,7 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
 }
 .form-grid label { display: flex; flex-direction: column; gap: .35rem; font-size: .9rem; color: var(--ink-2); }
 .form-grid label.full { grid-column: 1 / -1; }
+.form-grid label[hidden] { display: none; }
 .form-grid input, .form-grid select, .form-grid textarea {
   font: inherit; color: var(--ink);
   padding: .55rem .7rem; border: 1px solid var(--line); background: #fff;
@@ -224,12 +243,12 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
 
 /* ============================  FOOTER  =============================== */
 footer {
-  text-align: center; padding: 3rem 2rem 3rem; color: var(--ink-2); font-size: .85rem;
-  background: url('../assets/brown-layout.png') center / cover no-repeat;
-  color: #efe6d2; margin-top: 4rem;
+  text-align: center; padding: 3rem 2rem 3rem; font-size: .85rem;
+  background: var(--bg); border-top: 1px solid var(--line);
+  color: var(--ink-2); margin-top: 4rem;
 }
-footer p { color: #efe6d2; }
-.footer-img { max-width: 280px; width: 60%; display: block; margin: 0 auto 1rem; }
+footer p { color: var(--ink-2); }
+.footer-img { max-width: 240px; width: 50%; display: block; margin: 0 auto 1rem; }
 
 /* ============================  TOASTS  =============================== */
 #toast-root { position: fixed; right: 1rem; bottom: 1rem; display: flex; flex-direction: column; gap: .5rem; z-index: 200; }
