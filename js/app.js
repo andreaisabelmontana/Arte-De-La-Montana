@@ -70,6 +70,7 @@ const escapeHtml = s => String(s ?? '').replace(/[&<>"']/g,
 
 /* ============================ Router ================================== */
 function go(view) {
+  document.body.setAttribute('data-view', view);
   $$('.view').forEach(v => v.classList.toggle('active', v.id === `view-${view}`));
   $$('#topbar nav a').forEach(a => a.classList.toggle('active', a.dataset.view === view));
   if (view === 'order')  OrderUI.render();
