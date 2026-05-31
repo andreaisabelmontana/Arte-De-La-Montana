@@ -24,8 +24,10 @@
     <!-- ====================  GALLERY  ==================== -->
     <section id="view-gallery" class="view active">
       <div class="hero">
-        <img class="hero-title" src="assets/website-main-title.png" alt="Arte de la Montaña" />
-        <img class="hero-subtitle" src="assets/subtitle.png" alt="" />
+        <div class="hero-banner-wrap">
+          <img class="hero-banner" src="assets/landing.png" alt="" />
+          <img class="hero-title" src="assets/website-main-title.png" alt="Arte de la Montaña" />
+        </div>
       </div>
       <div class="grid" id="gallery-grid"></div>
     </section>
@@ -33,8 +35,7 @@
     <!-- ====================  ABOUT  ==================== -->
     <section id="view-about" class="view">
       <div class="about-hero">
-        <img src="assets/landing.png" alt="" class="about-landing" />
-        <img src="assets/title.png" alt="" class="about-title" />
+        <img src="assets/subtitle.png" alt="Andrea" class="about-subtitle" />
       </div>
 
       <div class="about-body">
@@ -98,14 +99,20 @@
 
     <!-- ====================  ORDER  ==================== -->
     <section id="view-order" class="view">
+      <img src="assets/title.png" alt="Customize" class="order-title" />
       <h2>Order a piece</h2>
       <p class="lede">
-        Pick one or more works from the list below. Submit the form and the
-        studio will reply to your e-mail with availability, framing and shipping
-        options. No payment is taken here.
+        Pick one or more works from the catalogue, or request your own
+        personalized piece by uploading reference images. Submit the form and the
+        studio will reply to your e-mail. No payment is taken here.
       </p>
 
       <form id="order-form" novalidate>
+        <fieldset class="order-mode">
+          <label><input type="radio" name="mode" value="existing" checked /> Choose an existing piece</label>
+          <label><input type="radio" name="mode" value="custom" /> Request a personalized piece</label>
+        </fieldset>
+
         <div class="form-grid">
           <label>Your name
             <input name="customer" required minlength="2" />
@@ -119,12 +126,19 @@
           <label>Shipping country
             <input name="country" placeholder="e.g. Spain" />
           </label>
-          <label class="full">Pieces you are interested in
-            <select name="pieces" id="order-pieces" multiple required size="10"></select>
+
+          <label class="full" data-mode-field="existing">Pieces you are interested in
+            <select name="pieces" id="order-pieces" multiple size="10"></select>
             <small>Hold ⌘ / Ctrl to select multiple.</small>
           </label>
+
+          <label class="full" data-mode-field="custom" hidden>Reference images
+            <input name="references" id="order-references" type="file" accept="image/*" multiple />
+            <small>Upload photos or sketches to guide your commission.</small>
+          </label>
+
           <label class="full">Message
-            <textarea name="message" rows="4" placeholder="Anything we should know — framing, dimensions, deadline…"></textarea>
+            <textarea name="message" rows="4" placeholder="Anything we should know — subject, dimensions, medium, deadline…"></textarea>
           </label>
         </div>
 
