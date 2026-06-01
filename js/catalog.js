@@ -15,7 +15,6 @@ const ASSET_FILES = [
   'barcelona-2024-acrylic-large.png',
   'bogota-2026-acrylic-large.png',
   'caracas-2026-alcohol-medium.png',
-  'caracas-duplicate.png',
   'chamo-2026-acrylic-large.png',
   'colorin-2021-oil-large.png',
   'feriado-2025-pen-medium.png',
@@ -120,9 +119,6 @@ function titleCase(slug) {
 
 /* A few asset files predate the {title}-{year}-{medium}-{size}.png convention. */
 const SPECIAL = {
-  'caracas-duplicate.png': {
-    title: 'Caracas (study II)', year: 2026, medium: 'alcohol', size: 'medium',
-  },
 };
 
 /** Parse a filename like `caracas-2026-alcohol-medium.png` into seed data. */
