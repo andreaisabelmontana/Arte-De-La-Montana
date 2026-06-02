@@ -89,8 +89,18 @@ const GalleryUI = {
         <span class="caption">${escapeHtml(a.title)} · ${a.year}</span>
       </a>
     `).join('');
-    grid.querySelectorAll('.tile').forEach(t =>
-      t.addEventListener('click', () => GalleryUI.openDetail(t.dataset.id)));
+    grid.querySelectorAll('.tile').forEach(t => {
+      t.addEventListener('click', () => GalleryUI.openDetail(t.dataset.id));
+      // Pieces far from square (e.g. the bookmark or the ceramic tray) get
+      // cropped badly by object-fit: cover, so show them whole instead.
+      const img = t.querySelector('img');
+      const fit = () => {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+        const r = img.naturalWidth / img.naturalHeight;
+        if (r < 0.6 || r > 1.7) t.classList.add('tile-fit');
+      };
+      if (img.complete) fit(); else img.addEventListener('load', fit);
+    });
   },
   openDetail(id) {
     let a; try { a = gallery.get(id); } catch (e) { Toast.error(e.message); return; }
