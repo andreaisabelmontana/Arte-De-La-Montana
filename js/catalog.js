@@ -15,6 +15,7 @@ const ASSET_FILES = [
   'barcelona-2024-acrylic-large.png',
   'bogota-2026-acrylic-large.png',
   'caracas-2026-alcohol-medium.png',
+  'caracas-skyline-2026-acrylicpen-medium.png',
   'chamo-2026-acrylic-large.png',
   'colorin-2021-oil-large.png',
   'feriado-2025-pen-medium.png',
@@ -60,12 +61,14 @@ const TITLE_FIXES = {
 };
 const MEDIUM_FIXES = {
   'acylic':      'acrylic',
+  'acrylicpen':  'acrylic + pen',
   'colorpencil': 'color-pencil',
   'oilpastel':   'oil-pastel',
   'drypastel':   'dry-pastel',
 };
 const DESCRIPTIONS = {
   'caracas':       'Capital memory study — alcohol marker on cold-press paper.',
+  'caracas-skyline': 'Caracas skyline in a cartoon/comic style — acrylic and pen mixed media, medium canvas, with El Ávila rising behind the city.',
   'venezia':       'A wide oil composition of the Venetian lagoon, the largest piece in the catalogue.',
   'barcelona':     'Modernist façade study captured during a residency in Spain.',
   'bogota':        'High-altitude rooftops painted from sketches taken in Bogotá, 2026.',
@@ -102,6 +105,7 @@ const DESCRIPTIONS = {
 
 const TAG_MAP = {
   acrylic:        ['acrylic', 'canvas', 'paint'],
+  'acrylic + pen': ['acrylic', 'pen', 'mixed-media', 'canvas'],
   oil:            ['oil', 'canvas'],
   alcohol:        ['marker', 'paper'],
   pen:            ['pen', 'ink', 'paper'],
