@@ -23,7 +23,14 @@ const session     = new S.SessionManager(userDao);
 const auth        = new S.AuthService(userDao, session);
 const gallery     = new S.GalleryService(artworkDao);
 
-/* ------- One-time seed ------------------------------------------------- */
+/* ------- Seed / re-seed on catalogue change ---------------------------- *
+ * The gallery is seeded into LocalStorage once. When the catalogue changes
+ * (pieces added, removed or renamed) we bump C.CATALOG_VERSION so returning
+ * visitors drop their stale copy and pick up the new seed. */
+if (D.Storage.read('catalog-version') !== C.CATALOG_VERSION) {
+  artworkDao.replaceAll([]);
+  D.Storage.write('catalog-version', C.CATALOG_VERSION);
+}
 if (artworkDao.count() === 0) {
   for (const a of C.SEED_ARTWORKS) {
     try { gallery.create(a); } catch (_) { /* ignore dup */ }
@@ -91,29 +98,28 @@ const GalleryUI = {
     `).join('');
     grid.querySelectorAll('.tile').forEach(t => {
       t.addEventListener('click', () => GalleryUI.openDetail(t.dataset.id));
-      // Pieces far from square (e.g. the bookmark or the ceramic tray) get
-      // cropped badly by object-fit: cover, so show them whole instead.
-      const img = t.querySelector('img');
-      const fit = () => {
-        if (!img.naturalWidth || !img.naturalHeight) return;
-        const r = img.naturalWidth / img.naturalHeight;
-        if (r < 0.6 || r > 1.7) t.classList.add('tile-fit');
-      };
-      if (img.complete) fit(); else img.addEventListener('load', fit);
     });
   },
   openDetail(id) {
     let a; try { a = gallery.get(id); } catch (e) { Toast.error(e.message); return; }
+    // Optional alternate views (e.g. a pen-stencil version) and narrative.
+    const alts  = (C.ALT_VIEWS && C.ALT_VIEWS[a.imageUrl]) || null;
+    const slug  = a.imageUrl.split('/').pop().replace(/\.[^.]+$/, '').replace(/-\d{4}-.*$/, '');
+    const story = (C.STORIES && C.STORIES[slug]) || '';
     const node = document.createElement('div');
     node.className = 'detail';
     node.innerHTML = `
       <div class="image">
         <img src="${escapeHtml(a.imageUrl)}" alt="${escapeHtml(a.title)}" />
+        ${alts ? `<div class="view-toggle">${alts.map((v, i) =>
+          `<button type="button" data-src="${escapeHtml(v.imageUrl)}" class="${i === 0 ? 'active' : ''}">${escapeHtml(v.label)}</button>`
+        ).join('')}</div>` : ''}
       </div>
       <div class="meta">
         <h3>${escapeHtml(a.title)}</h3>
         <div class="sub">${a.year} · ${escapeHtml(a.medium)} · ${escapeHtml(a.size)}</div>
         <p class="desc">${escapeHtml(a.description)}</p>
+        ${story ? `<p class="story">${escapeHtml(story)}</p>` : ''}
         <dl>
           <dt>Category</dt><dd>${escapeHtml(a.category())}</dd>
           <dt>Medium</dt><dd>${escapeHtml(a.medium)}</dd>
@@ -123,6 +129,15 @@ const GalleryUI = {
         </dl>
         <button class="primary" data-order-id="${a.id}">Enquire about this piece</button>
       </div>`;
+    if (alts) {
+      const img = node.querySelector('.image img');
+      node.querySelectorAll('.view-toggle button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          img.src = btn.dataset.src;
+          node.querySelectorAll('.view-toggle button').forEach(b => b.classList.toggle('active', b === btn));
+        });
+      });
+    }
     node.querySelector('[data-order-id]').addEventListener('click', () => {
       Modal.close();
       OrderUI.preselect(a.id);

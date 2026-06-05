@@ -9,39 +9,38 @@
 /* Each row is the literal filename in /assets — the asset filename is the
  * source of truth for title/year/medium/size. */
 const ASSET_FILES = [
-  '2000-2026-acrylic-large.png',
-  'angel-2021-pencil-medium.png',
-  'awesome-2026-acrylic-small.png',
-  'barcelona-2024-acrylic-large.png',
-  'bogota-2026-acrylic-large.png',
-  'caracas-2026-alcohol-medium.png',
-  'caracas-skyline-2026-acrylicpen-medium.png',
-  'chamo-2026-acrylic-large.png',
-  'colorin-2021-oil-large.png',
-  'feriado-2025-pen-medium.png',
-  'fleurs-2026-acrylic-large.png',
-  'ganado-2026-pen-medium.png',
-  'grocery-2023-oilpastel-medium.png',
-  'jazz-2026-acylic-medium.png',
-  'ladybug-2020-colorpencil-small.png',
-  'laia-2020-pencil-medium.png',
-  'luck-2021-oilpastel-medium.png',
-  'men-2021-drypastel-medium.png',
-  'mimir-2021-drypastel-medium.png',
-  'newspaper-2021-oilpastel-medium.png',
-  'peach-2026-alcohol-medium.png',
-  'pescadito-2026-acrylic-medium.png',
-  'porto-2025-ceramic-medium.png',
-  'portugal-2022-acylic-small.png',
-  'run-2026-alcohol-medium.png',
-  'san-fransisco-2022-acrylic-small.png',
-  'simona-2026-acrylic-large.png',
-  'sloth-2023-acrylic-small.png',
-  'tokyo-2023-pen-medium.png',
-  'venezia-2020-oil-extralarge.png',
-  'vtech-2026-alcohol-medium.png',
-  'wizard-2021-colorpencil-small.png',
-  'zahra-2023-oil-medium.png',
+  '2000-2026-acrylic-large.jpg',
+  'angel-2021-pencil-medium.jpg',
+  'awesome-2026-acrylic-small.jpg',
+  'barcelona-2024-acrylic-large.jpg',
+  'bogota-2026-acrylic-large.jpg',
+  'caracas-skyline-2026-acrylicpen-medium.jpg',
+  'chamo-2026-acrylic-large.jpg',
+  'colorin-2021-oil-large.jpg',
+  'feriado-2025-pen-medium.jpg',
+  'fleurs-2026-acrylic-large.jpg',
+  'ganado-2026-pen-medium.jpg',
+  'grocery-2023-oilpastel-medium.jpg',
+  'jazz-2026-acylic-medium.jpg',
+  'ladybug-2020-colorpencil-small.jpg',
+  'laia-2020-pencil-medium.jpg',
+  'luck-2021-oilpastel-medium.jpg',
+  'men-2021-drypastel-medium.jpg',
+  'mimir-2021-drypastel-medium.jpg',
+  'newspaper-2021-oilpastel-medium.jpg',
+  'peach-2026-alcohol-medium.jpg',
+  'pescadito-2026-acrylic-medium.jpg',
+  'porto-2025-ceramic-medium.jpg',
+  'portugal-2022-acylic-small.jpg',
+  'run-2026-alcohol-medium.jpg',
+  'san-fransisco-2022-acrylic-small.jpg',
+  'simona-2026-acrylic-large.jpg',
+  'sloth-2023-acrylic-small.jpg',
+  'tokyo-2023-pen-medium.jpg',
+  'venezia-2020-oil-extralarge.jpg',
+  'vtech-2026-alcohol-medium.jpg',
+  'wizard-2021-colorpencil-small.jpg',
+  'zahra-2023-oil-medium.jpg',
 ];
 
 /* Cosmetic mappings — pretty title + a short description tailored to each piece. */
@@ -67,7 +66,6 @@ const MEDIUM_FIXES = {
   'drypastel':   'dry-pastel',
 };
 const DESCRIPTIONS = {
-  'caracas':       'Capital memory study — alcohol marker on cold-press paper.',
   'caracas-skyline': 'Caracas skyline in a cartoon/comic style — acrylic and pen mixed media, medium canvas, with El Ávila rising behind the city.',
   'venezia':       'A wide oil composition of the Venetian lagoon, the largest piece in the catalogue.',
   'barcelona':     'Modernist façade study captured during a residency in Spain.',
@@ -136,7 +134,7 @@ function parseFilename(name) {
       tags:        TAG_MAP[special.medium] || [special.medium],
     });
   }
-  const base = name.replace(/\.png$/i, '');
+  const base = name.replace(/\.(png|jpe?g|webp|gif)$/i, '');
   const parts = base.split('-');
   // last 3 components are year, medium, size
   const size   = parts.pop();
@@ -166,5 +164,29 @@ const SEED_USERS = [
   { role: 'VISITOR', username: 'visitor', password: 'visitor123', fullName: 'Visitor Demo',   email: 'visitor@artedelamontana.example' },
 ];
 
-window.GalleryCatalog = { SEED_ARTWORKS, SEED_USERS };
+/* Alternate views — keyed by a piece's imageUrl. When present, the detail
+ * modal offers a toggle between the main image and these alternates. Kept here
+ * (rather than on the Artwork model) so it survives without touching the OOP
+ * persistence layer. */
+const ALT_VIEWS = {
+  'assets/caracas-skyline-2026-acrylicpen-medium.jpg': [
+    { imageUrl: 'assets/caracas-skyline-2026-acrylicpen-medium.jpg', label: 'Colour' },
+    { imageUrl: 'assets/caracas-skyline-stencil.jpg',                label: 'Pen stencil' },
+  ],
+};
+
+/* Narratives behind selected works — keyed by slug (the part of the filename
+ * before the year). Leave a piece out, or set it to '', to show no story.
+ * Fill these in over time; they render under the description in the detail
+ * modal and are great for visitors and SEO. */
+const STORIES = {
+  'caracas-skyline': '',
+  // 'venezia': 'The story behind this piece…',
+};
+
+/* Bump this whenever the seed catalogue changes (pieces added/removed/renamed)
+ * so returning visitors get the updated gallery instead of a stale cached one. */
+const CATALOG_VERSION = '2026-06-05-1';
+
+window.GalleryCatalog = { SEED_ARTWORKS, SEED_USERS, ALT_VIEWS, STORIES, CATALOG_VERSION };
 })();
