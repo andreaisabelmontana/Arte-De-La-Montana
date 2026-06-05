@@ -7,11 +7,12 @@ classes so the site can be hosted on GitHub Pages with no backend.
 
 ## Sections
 
-- **Gallery** — every piece in `assets/` as a uniform square thumbnail.
-  Click any tile to see the medium, year, size, and description, and to
-  start an enquiry for that piece.
-- **About** — the studio's story, with the self-portraits, Mafalda strip,
-  comic-life print, design notes, and signature plate.
+- **Gallery** — every piece in `assets/` shown whole in a masonry layout
+  (no cropping). Click any tile to see the medium, year, size, description
+  and — where present — an alternate view (e.g. a pen-stencil version) and
+  the story behind the work, and to start an enquiry for that piece.
+- **About** — the studio's story, with the self-portraits, comic-life print,
+  design notes, and signature plate.
 - **Order** — fill in your details, pick the pieces you'd like to enquire
   about, and submit. Enquiries are stored in your browser so you can come
   back to them later.
