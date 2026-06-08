@@ -38,7 +38,6 @@ const ASSET_FILES = [
   'tokyo-2023-pen-medium.jpg',
   'venezia-2020-oil-extralarge.jpg',
   'vtech-2026-alcohol-medium.jpg',
-  'wizard-2021-colorpencil-small.jpg',
   'zahra-2023-oil-medium.jpg',
 ];
 
@@ -76,7 +75,6 @@ const DESCRIPTIONS = {
   'jazz':          'A band of crocodiles lost in their playing, horns and stray notes drifting across the canvas. Acrylic improvised to a jazz record.',
   'sloth':         'A sloth stretched along a branch, slow and content, a small acrylic from the recurring animal cast.',
   'ladybug':       'A ladybug seen up close in colour pencil, its reds pushed past life into something jewel bright.',
-  'wizard':        'A young student under a ceiling of floating candles, a colour pencil nod to a beloved world of wizardry.',
   'angel':         'A winged figure at rest, graphite worked from the softest greys down to deep shadow.',
   'laia':          'A girl in a sun hat and swimsuit, a pencil portrait of high soft light and gentle edges.',
   'mimir':         'A girl curled on a staircase, caught somewhere between rest and daydream, in dry pastel.',
@@ -187,7 +185,7 @@ const STORIES = {
 
 /* Bump this whenever the seed catalogue changes (pieces added/removed/renamed)
  * so returning visitors get the updated gallery instead of a stale cached one. */
-const CATALOG_VERSION = '2026-06-08-1';
+const CATALOG_VERSION = '2026-06-08-2';
 
 window.GalleryCatalog = { SEED_ARTWORKS, SEED_USERS, ALT_VIEWS, STORIES, CATALOG_VERSION };
 })();
