@@ -78,7 +78,7 @@ const DESCRIPTIONS = {
   'angel':         'A winged figure at rest, graphite worked from the softest greys down to deep shadow.',
   'laia':          'A girl in a sun hat and swimsuit, a pencil portrait of high soft light and gentle edges.',
   'mimir':         'A girl curled on a staircase, caught somewhere between rest and daydream, in dry pastel.',
-  'men':           'A male figure seen from behind, hands at the neck, a dry pastel study of weight and muscle.',
+  'men':           'A male figure seen from behind, hands raised to the hair, a dry pastel study of weight and muscle.',
   'colorin':       'A hummingbird ablaze with colour, oil built up in small jewelled strokes. The title nods to the bright birds of Venezuela.',
   'newspaper':     'A folded paper boat adrift on swirling water, oil pastel, small and hopeful against the current.',
   'grocery':       'Two teddy bears steering a cart piled high with groceries, oil pastel full of warmth and happy clutter.',
@@ -89,7 +89,7 @@ const DESCRIPTIONS = {
   'feriado':       'A holiday plaza in pen, a bandstand among palms with families strolling on a day off.',
   'ganado':        'Two figures leaning on a rail above the pens, watching the cattle at a country fair. Pen lifted with light colour.',
   'pescadito':     'A little fish and a few lemons on striped cloth, a quiet acrylic still life with a kitchen calm.',
-  'simona':        'An oil portrait of Simona, a tortoiseshell cat whose coat is a patchwork of warm darks.',
+  'simona':        'An oil portrait of Simona, a flat faced Persian cat whose coat is a patchwork of warm darks.',
   'chamo':         'A bear hugging a carton of Polar against a burst of yellow rays, a fond acrylic wink at Venezuelan street life.',
   'portugal':      'A teddy bear in a pink sun hat with pastel houses behind it, a small acrylic souvenir of the Portuguese coast.',
   'san-fransisco': 'Two teddy bears at a picnic beneath the Golden Gate, a small acrylic where the great landmark turns tender.',
@@ -185,7 +185,7 @@ const STORIES = {
 
 /* Bump this whenever the seed catalogue changes (pieces added/removed/renamed)
  * so returning visitors get the updated gallery instead of a stale cached one. */
-const CATALOG_VERSION = '2026-06-08-3';
+const CATALOG_VERSION = '2026-06-08-4';
 
 window.GalleryCatalog = { SEED_ARTWORKS, SEED_USERS, ALT_VIEWS, STORIES, CATALOG_VERSION };
 })();
