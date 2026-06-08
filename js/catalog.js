@@ -11,10 +11,9 @@
 const ASSET_FILES = [
   '2000-2026-acrylic-large.jpg',
   'angel-2021-pencil-medium.jpg',
-  'awesome-2026-acrylic-small.jpg',
   'barcelona-2024-acrylic-large.jpg',
   'bogota-2026-acrylic-large.jpg',
-  'caracas-skyline-2026-acrylicpen-medium.jpg',
+  'caracas-skyline-2026-watercolor-medium.jpg',
   'chamo-2026-acrylic-large.jpg',
   'colorin-2021-oil-large.jpg',
   'feriado-2025-pen-medium.jpg',
@@ -60,58 +59,59 @@ const TITLE_FIXES = {
 };
 const MEDIUM_FIXES = {
   'acylic':      'acrylic',
-  'acrylicpen':  'acrylic + pen',
-  'colorpencil': 'color-pencil',
-  'oilpastel':   'oil-pastel',
-  'drypastel':   'dry-pastel',
+  'acrylicpen':  'acrylic and pen',
+  'colorpencil': 'colour pencil',
+  'oilpastel':   'oil pastel',
+  'drypastel':   'dry pastel',
+  'watercolor':  'watercolour',
 };
 const DESCRIPTIONS = {
-  'caracas-skyline': 'Caracas skyline in a cartoon/comic style — acrylic and pen mixed media, medium canvas, with El Ávila rising behind the city.',
-  'venezia':       'A wide oil composition of the Venetian lagoon, the largest piece in the catalogue.',
-  'barcelona':     'Modernist façade study captured during a residency in Spain.',
-  'bogota':        'High-altitude rooftops painted from sketches taken in Bogotá, 2026.',
-  'tokyo':         'Pen-and-ink figures from a sketch trip through Tokyo.',
-  'porto':         'Ceramic-effect impasto inspired by Portuguese azulejos.',
-  'fleurs':        'Acrylic botanical study, large canvas.',
-  'jazz':          'Improvised acrylic mark-making to a Bill Evans record.',
-  'sloth':         'Small acrylic creature study; one of the recurring animal subjects.',
-  'ladybug':       'Color-pencil close-up; deliberately oversaturated reds.',
-  'wizard':        'A small color-pencil portrait piece, 2021.',
-  'angel':         'Graphite portrait in HB / 2B pencil, medium A3.',
-  'laia':          'Pencil portrait of a friend; soft edges, high-key lighting.',
-  'mimir':         'Dry pastel sleep study, 2021.',
-  'men':           'Dry pastel figure work; quick gestural drawing.',
-  'colorin':       'Oil composition exploring complementary colour palettes.',
-  'newspaper':     'Oil-pastel collage referencing newspaper textures.',
-  'grocery':       'Still-life of a grocery counter, oil pastel.',
-  'luck':          'Lucky charms still life in oil pastel.',
-  'peach':         'Alcohol-marker fruit study with cool shadows.',
-  'run':           'Movement study in alcohol marker — runners mid-stride.',
-  'awesome':       'Acrylic word study, small canvas.',
-  '2000':          'Acrylic typography piece celebrating the millennium.',
-  'feriado':       'Pen-on-paper holiday scene.',
-  'ganado':        'Pen study of cattle, A4.',
-  'pescadito':     'Acrylic fish piece, palette knife on canvas.',
-  'simona':        'Large acrylic portrait of Simona, 2026.',
-  'chamo':         'Acrylic study of a Venezuelan chamo (kid) on the street.',
-  'portugal':      'Small acrylic landscape, Portuguese coastline.',
-  'san-fransisco': 'Small acrylic of the San Francisco skyline.',
-  'vtech':         'Alcohol-marker tech-toy study.',
-  'zahra':         'Oil portrait, medium canvas.',
-  'sloth-2023':    'Small acrylic creature study.',
+  'caracas-skyline': 'The Caracas skyline beneath El Ávila, the green mountain that watches over the city. The piece lives in three renderings you can switch between, a clean pen line, a bold colour version and a soft watercolour, each carrying the same towers and the Polar and Nescafé signs locals know by heart.',
+  'venezia':       'A wide oil view of the Venetian lagoon, water and faded façades meeting in low light. The largest piece in the catalogue.',
+  'barcelona':     'The city built from its own colour and clamour, letters tangled around a watching eye. A keepsake of time spent in Spain.',
+  'bogota':        'Bogotá spelled out in bright stacked letters, loud and playful, a postcard from the high Andean capital.',
+  'tokyo':         'A quiet station platform in pen, commuters and signage caught in the clean lines of a travel sketch.',
+  'porto':         'Two blue fish on a white ceramic tile, a nod to Portuguese azulejos and the thick glaze of fired clay.',
+  'fleurs':        'A homage to the old Neuilly sur Seine flower festival poster, dancers and roses crowded into warm acrylic.',
+  'jazz':          'A band of crocodiles lost in their playing, horns and stray notes drifting across the canvas. Acrylic improvised to a jazz record.',
+  'sloth':         'A sloth stretched along a branch, slow and content, a small acrylic from the recurring animal cast.',
+  'ladybug':       'A ladybug seen up close in colour pencil, its reds pushed past life into something jewel bright.',
+  'wizard':        'A young student under a ceiling of floating candles, a colour pencil nod to a beloved world of wizardry.',
+  'angel':         'A winged figure at rest, graphite worked from the softest greys down to deep shadow.',
+  'laia':          'A girl in a sun hat and swimsuit, a pencil portrait of high soft light and gentle edges.',
+  'mimir':         'A girl curled on a staircase, caught somewhere between rest and daydream, in dry pastel.',
+  'men':           'A male figure seen from behind, hands at the neck, a dry pastel study of weight and muscle.',
+  'colorin':       'A hummingbird ablaze with colour, oil built up in small jewelled strokes. The title nods to the bright birds of Venezuela.',
+  'newspaper':     'A folded paper boat adrift on swirling water, oil pastel, small and hopeful against the current.',
+  'grocery':       'Two teddy bears steering a cart piled high with groceries, oil pastel full of warmth and happy clutter.',
+  'luck':          'A girl in red seated on worn steps, ladybugs scattered around her like small tokens of luck. Oil pastel.',
+  'peach':         'A white cat asleep on a bench, alcohol marker with cool shadows and soft, drowsy fur.',
+  'run':           'A baseball moment, the batter set and the field alive, drawn quickly in alcohol marker.',
+  '2000':          'A candy bright cityscape packed with towers, signs and tiny figures, a millennium piece bursting with acrylic energy.',
+  'feriado':       'A holiday plaza in pen, a bandstand among palms with families strolling on a day off.',
+  'ganado':        'Two figures leaning on a rail above the pens, watching the cattle at a country fair. Pen lifted with light colour.',
+  'pescadito':     'A little fish and a few lemons on striped cloth, a quiet acrylic still life with a kitchen calm.',
+  'simona':        'An oil portrait of Simona, a tortoiseshell cat whose coat is a patchwork of warm darks.',
+  'chamo':         'A bear hugging a carton of Polar against a burst of yellow rays, a fond acrylic wink at Venezuelan street life.',
+  'portugal':      'A teddy bear in a pink sun hat with pastel houses behind it, a small acrylic souvenir of the Portuguese coast.',
+  'san-fransisco': 'Two teddy bears at a picnic beneath the Golden Gate, a small acrylic where the great landmark turns tender.',
+  'vtech':         'A child bent over a toy laptop, lost in play, alcohol marker. A soft look at the very first screens.',
+  'zahra':         'An oil portrait of baby Zahra asleep on a dark sofa, all soft weight and quiet.',
+  'sloth-2023':    'A small acrylic creature study, one of the recurring animal subjects.',
 };
 
 const TAG_MAP = {
-  acrylic:        ['acrylic', 'canvas', 'paint'],
-  'acrylic + pen': ['acrylic', 'pen', 'mixed-media', 'canvas'],
-  oil:            ['oil', 'canvas'],
-  alcohol:        ['marker', 'paper'],
-  pen:            ['pen', 'ink', 'paper'],
-  pencil:         ['pencil', 'paper'],
-  'oil-pastel':   ['pastel', 'paper'],
-  'dry-pastel':   ['pastel', 'paper'],
-  'color-pencil': ['color', 'pencil', 'paper'],
-  ceramic:        ['ceramic', 'impasto'],
+  acrylic:            ['acrylic', 'canvas', 'paint'],
+  'acrylic and pen':  ['acrylic', 'pen', 'mixed media', 'canvas'],
+  watercolour:        ['watercolour', 'pen', 'paper'],
+  oil:                ['oil', 'canvas'],
+  alcohol:            ['marker', 'paper'],
+  pen:                ['pen', 'ink', 'paper'],
+  pencil:             ['pencil', 'paper'],
+  'oil pastel':       ['pastel', 'paper'],
+  'dry pastel':       ['pastel', 'paper'],
+  'colour pencil':    ['colour', 'pencil', 'paper'],
+  ceramic:            ['ceramic', 'impasto'],
 };
 
 function titleCase(slug) {
@@ -169,8 +169,9 @@ const SEED_USERS = [
  * (rather than on the Artwork model) so it survives without touching the OOP
  * persistence layer. */
 const ALT_VIEWS = {
-  'assets/caracas-skyline-2026-acrylicpen-medium.jpg': [
-    { imageUrl: 'assets/caracas-skyline-2026-acrylicpen-medium.jpg', label: 'Colour' },
+  'assets/caracas-skyline-2026-watercolor-medium.jpg': [
+    { imageUrl: 'assets/caracas-skyline-2026-watercolor-medium.jpg', label: 'Watercolour' },
+    { imageUrl: 'assets/caracas-skyline-comic.jpg',                  label: 'Colour' },
     { imageUrl: 'assets/caracas-skyline-stencil.jpg',                label: 'Pen stencil' },
   ],
 };
@@ -180,13 +181,13 @@ const ALT_VIEWS = {
  * Fill these in over time; they render under the description in the detail
  * modal and are great for visitors and SEO. */
 const STORIES = {
-  'caracas-skyline': '',
+  'caracas-skyline': 'One skyline drawn three ways. The pen study came first, every tower and sign set down by hand, then the same scene was carried into colour and finally into watercolour. Use the buttons under the image to move between them.',
   // 'venezia': 'The story behind this piece…',
 };
 
 /* Bump this whenever the seed catalogue changes (pieces added/removed/renamed)
  * so returning visitors get the updated gallery instead of a stale cached one. */
-const CATALOG_VERSION = '2026-06-05-1';
+const CATALOG_VERSION = '2026-06-08-1';
 
 window.GalleryCatalog = { SEED_ARTWORKS, SEED_USERS, ALT_VIEWS, STORIES, CATALOG_VERSION };
 })();

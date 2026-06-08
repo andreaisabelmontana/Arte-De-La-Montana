@@ -91,6 +91,14 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
 }
 .tile:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(34, 29, 24, .15); }
 .tile img { width: 100%; height: auto; display: block; }
+
+/* Tile footprint scales with the piece's size tag, so a small bookmark
+ * doesn't blow up to the same width as a large canvas. Narrower tiles are
+ * centred within their masonry column. */
+.tile[data-size="extralarge"] { width: 100%; }
+.tile[data-size="large"]      { width: 100%; }
+.tile[data-size="medium"]     { display: block; width: 80%; margin-left: auto; margin-right: auto; }
+.tile[data-size="small"]      { display: block; width: 58%; margin-left: auto; margin-right: auto; }
 .tile .caption {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: .55rem .8rem; font-size: .82rem; color: var(--paper);
