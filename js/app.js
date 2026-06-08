@@ -91,7 +91,7 @@ const GalleryUI = {
     const grid = $('#gallery-grid');
     const rows = gallery.list({ sort: 'year-desc' });
     grid.innerHTML = rows.map(a => `
-      <a class="tile" data-id="${a.id}" title="${escapeHtml(a.title)} (${a.year})">
+      <a class="tile" data-id="${a.id}" data-size="${escapeHtml(a.size)}" title="${escapeHtml(a.title)} (${a.year})">
         <img src="${escapeHtml(a.imageUrl)}" alt="${escapeHtml(a.title)}" loading="lazy" />
         <span class="caption">${escapeHtml(a.title)} · ${a.year}</span>
       </a>
