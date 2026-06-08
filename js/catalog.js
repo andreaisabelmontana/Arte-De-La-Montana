@@ -13,7 +13,7 @@ const ASSET_FILES = [
   'angel-2021-pencil-medium.jpg',
   'barcelona-2024-acrylic-large.jpg',
   'bogota-2026-acrylic-large.jpg',
-  'caracas-skyline-2026-watercolor-medium.jpg',
+  'caracas-skyline-2026-watercolor-large.jpg',
   'chamo-2026-acrylic-large.jpg',
   'colorin-2021-oil-large.jpg',
   'feriado-2025-pen-medium.jpg',
@@ -167,8 +167,8 @@ const SEED_USERS = [
  * (rather than on the Artwork model) so it survives without touching the OOP
  * persistence layer. */
 const ALT_VIEWS = {
-  'assets/caracas-skyline-2026-watercolor-medium.jpg': [
-    { imageUrl: 'assets/caracas-skyline-2026-watercolor-medium.jpg', label: 'Watercolour' },
+  'assets/caracas-skyline-2026-watercolor-large.jpg': [
+    { imageUrl: 'assets/caracas-skyline-2026-watercolor-large.jpg', label: 'Watercolour' },
     { imageUrl: 'assets/caracas-skyline-comic.jpg',                  label: 'Colour' },
     { imageUrl: 'assets/caracas-skyline-stencil.jpg',                label: 'Pen stencil' },
   ],
@@ -185,7 +185,7 @@ const STORIES = {
 
 /* Bump this whenever the seed catalogue changes (pieces added/removed/renamed)
  * so returning visitors get the updated gallery instead of a stale cached one. */
-const CATALOG_VERSION = '2026-06-08-2';
+const CATALOG_VERSION = '2026-06-08-3';
 
 window.GalleryCatalog = { SEED_ARTWORKS, SEED_USERS, ALT_VIEWS, STORIES, CATALOG_VERSION };
 })();
