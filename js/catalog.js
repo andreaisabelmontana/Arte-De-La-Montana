@@ -24,6 +24,7 @@ const ASSET_FILES = [
   'ladybug-2020-colorpencil-small.jpg',
   'laia-2020-pencil-medium.jpg',
   'luck-2021-oilpastel-medium.jpg',
+  'madrid-2023-penhighlighter-medium.jpg',
   'men-2021-drypastel-medium.jpg',
   'mimir-2021-drypastel-medium.jpg',
   'newspaper-2021-oilpastel-medium.jpg',
@@ -60,6 +61,7 @@ const TITLE_FIXES = {
 const MEDIUM_FIXES = {
   'acylic':      'acrylic',
   'acrylicpen':  'acrylic and pen',
+  'penhighlighter': 'pen and highlighter',
   'colorpencil': 'colour pencil',
   'oilpastel':   'oil pastel',
   'drypastel':   'dry pastel',
@@ -70,6 +72,7 @@ const DESCRIPTIONS = {
   'venezia':       'A wide oil view of the Venetian lagoon, water and faded façades meeting in low light. The largest piece in the catalogue.',
   'barcelona':     'The city built from its own colour and clamour, letters tangled around a watching eye. A keepsake of time spent in Spain.',
   'bogota':        'Bogotá spelled out in bright stacked letters, loud and playful, a postcard from the high Andean capital.',
+  'madrid':        'The Arco de Cuchilleros and its stairway up into Plaza Mayor, pen linework lifted with highlighter, the yellow house glowing over the stone arch while a bookshop and a café hold the street below.',
   'tokyo':         'A quiet station platform in pen, commuters and signage caught in the clean lines of a travel sketch.',
   'porto':         'Two blue fish on a white ceramic tile, a nod to Portuguese azulejos and the thick glaze of fired clay.',
   'fleurs':        'A homage to the old Neuilly sur Seine flower festival poster, dancers and roses crowded into warm acrylic.',
@@ -107,6 +110,7 @@ const TAG_MAP = {
   oil:                ['oil', 'canvas'],
   alcohol:            ['marker', 'paper'],
   pen:                ['pen', 'ink', 'paper'],
+  'pen and highlighter': ['pen', 'highlighter', 'ink', 'paper'],
   pencil:             ['pencil', 'paper'],
   'oil pastel':       ['pastel', 'paper'],
   'dry pastel':       ['pastel', 'paper'],
@@ -184,11 +188,12 @@ const STORIES = {
   'caracas-skyline': 'One skyline drawn three ways. The pen study came first, every tower and sign set down by hand, then the same scene was carried into colour and finally into watercolour. Use the buttons under the image to move between them.',
   // 'venezia': 'The story behind this piece…',
   // 'shanghai': 'The story behind this piece…',
+  // 'madrid': 'The story behind this piece…',
 };
 
 /* Bump this whenever the seed catalogue changes (pieces added/removed/renamed)
  * so returning visitors get the updated gallery instead of a stale cached one. */
-const CATALOG_VERSION = '2026-07-29-1';
+const CATALOG_VERSION = '2026-07-29-2';
 
 window.GalleryCatalog = { SEED_ARTWORKS, SEED_USERS, ALT_VIEWS, STORIES, CATALOG_VERSION };
 })();
