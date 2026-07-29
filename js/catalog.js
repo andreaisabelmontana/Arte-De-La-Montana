@@ -33,7 +33,7 @@ const ASSET_FILES = [
   'portugal-2022-acylic-small.jpg',
   'run-2026-alcohol-medium.jpg',
   'san-fransisco-2022-acrylic-small.jpg',
-  'shanghai-2026-acrylicpen-medium.jpg',
+  'shanghai-2026-acrylic-medium.jpg',
   'simona-2026-acrylic-large.jpg',
   'sloth-2023-acrylic-small.jpg',
   'tokyo-2023-pen-medium.jpg',
@@ -94,7 +94,7 @@ const DESCRIPTIONS = {
   'chamo':         'A bear hugging a carton of Polar against a burst of yellow rays, a fond acrylic wink at Venezuelan street life.',
   'portugal':      'A teddy bear in a pink sun hat with pastel houses behind it, a small acrylic souvenir of the Portuguese coast.',
   'san-fransisco': 'Two teddy bears at a picnic beneath the Golden Gate, a small acrylic where the great landmark turns tender.',
-  'shanghai':      'The Shanghai skyline drawn tower by tower in blue pen, the Oriental Pearl at its heart, while the city writes its own name, 上海, across the sky in wide strokes of pink acrylic.',
+  'shanghai':      'The Shanghai skyline drawn tower by tower in fine lines of blue acrylic, the Oriental Pearl at its heart, while the city writes its own name, 上海, across the sky in wide strokes of pink.',
   'vtech':         'A child bent over a toy laptop, lost in play, alcohol marker. A soft look at the very first screens.',
   'zahra':         'An oil portrait of baby Zahra asleep on a dark sofa, all soft weight and quiet.',
   'sloth-2023':    'A small acrylic creature study, one of the recurring animal subjects.',
@@ -102,7 +102,7 @@ const DESCRIPTIONS = {
 
 const TAG_MAP = {
   acrylic:            ['acrylic', 'canvas', 'paint'],
-  'acrylic and pen':  ['acrylic', 'pen', 'mixed media', 'paper'],
+  'acrylic and pen':  ['acrylic', 'pen', 'mixed media', 'canvas'],
   watercolour:        ['watercolour', 'pen', 'paper'],
   oil:                ['oil', 'canvas'],
   alcohol:            ['marker', 'paper'],
@@ -188,7 +188,7 @@ const STORIES = {
 
 /* Bump this whenever the seed catalogue changes (pieces added/removed/renamed)
  * so returning visitors get the updated gallery instead of a stale cached one. */
-const CATALOG_VERSION = '2026-07-28-1';
+const CATALOG_VERSION = '2026-07-29-1';
 
 window.GalleryCatalog = { SEED_ARTWORKS, SEED_USERS, ALT_VIEWS, STORIES, CATALOG_VERSION };
 })();
