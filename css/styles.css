@@ -137,6 +137,22 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
 .order-title { display: block; width: 60%; max-width: 300px; margin: 0 0 1rem; }
 #view-order h2 { font-size: 2rem; margin-bottom: .25rem; }
 #view-order .lede { color: var(--ink-2); margin-bottom: 2rem; }
+#view-order h3 { margin: 2.4rem 0 .7rem; }
+#view-order .hint { margin: 0 0 .9rem; max-width: 720px; }
+
+.price-table {
+  width: 100%; max-width: 720px; border-collapse: collapse;
+  background: var(--paper); border: 1px solid var(--line);
+}
+.price-table th, .price-table td {
+  padding: .65rem .9rem; border-bottom: 1px solid var(--line);
+  text-align: left; font-size: .95rem;
+}
+.price-table th {
+  font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-2); font-weight: 500;
+}
+.price-table tbody tr:last-child td { border-bottom: none; }
 
 .contact-cards { display: flex; flex-wrap: wrap; gap: 1rem; max-width: 720px; }
 .contact-card {
