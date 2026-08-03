@@ -153,6 +153,7 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
   color: var(--ink-2); font-weight: 500;
 }
 .price-table tbody tr:last-child td { border-bottom: none; }
+.price-table .tbd { color: var(--ink-2); font-style: italic; }
 
 .contact-buttons { display: flex; flex-wrap: wrap; gap: .9rem; max-width: 720px; }
 .contact-btn {
