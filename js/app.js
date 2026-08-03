@@ -354,9 +354,11 @@ const StudioUI = {
 document.addEventListener('DOMContentLoaded', () => {
   GalleryUI.render();
 
-  // Internal navigation (header + content links)
+  // Internal navigation (header + content links). Match anchors only — the
+  // body itself carries data-view for CSS, and matching it would swallow
+  // every click on the page (including external links).
   document.body.addEventListener('click', ev => {
-    const a = ev.target.closest('[data-view]');
+    const a = ev.target.closest('a[data-view]');
     if (a) { ev.preventDefault(); go(a.dataset.view); }
   });
 

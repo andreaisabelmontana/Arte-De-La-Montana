@@ -154,18 +154,19 @@ button.primary:hover { background: var(--accent); border-color: var(--accent); }
 }
 .price-table tbody tr:last-child td { border-bottom: none; }
 
-.contact-cards { display: flex; flex-wrap: wrap; gap: 1rem; max-width: 720px; }
-.contact-card {
-  flex: 1 1 240px; display: block; padding: 1.5rem 1.8rem;
-  background: var(--paper); border: 1px solid var(--line);
-  text-decoration: none; color: var(--ink);
+.contact-buttons { display: flex; flex-wrap: wrap; gap: .9rem; max-width: 720px; }
+.contact-btn {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .85rem 1.5rem; border: 1px solid var(--ink); border-radius: 999px;
+  background: var(--paper); color: var(--ink); text-decoration: none;
+  font-size: 1rem; line-height: 1;
 }
-.contact-card:hover { border-color: var(--ink); }
-.contact-label {
-  display: block; font-size: .78rem; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--ink-2); margin-bottom: .35rem;
+.contact-btn svg { flex: none; }
+.contact-btn strong { font-weight: 600; }
+.contact-btn:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 560px) {
+  .contact-btn { width: 100%; justify-content: center; }
 }
-.contact-value { font-size: 1.15rem; }
 
 .form-grid {
   display: grid; gap: 1rem 1.4rem;
