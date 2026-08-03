@@ -2,7 +2,7 @@
  * Thin UI layer over the OOP model. Three views only:
  *   Gallery  → uniform grid of every artwork in the catalogue
  *   About    → studio story, uses every decorative asset
- *   Order    → enquiry form, persists enquiries to LocalStorage
+ *   Order    → direct contact links (Instagram / WhatsApp), static markup
  * The Java-style class / service / DAO / exception hierarchy lives untouched
  * in models.js, dao.js, services.js, exceptions.js so the syllabus concepts
  * still drive the data layer — the UI just stays out of the way.
@@ -18,7 +18,6 @@ const C  = window.GalleryCatalog;
 
 const artworkDao  = new D.ArtworkDao();
 const userDao     = new D.UserDao();
-const orderDao    = new D.LocalStorageDao('orders', o => o); // raw rows
 const session     = new S.SessionManager(userDao);
 const auth        = new S.AuthService(userDao, session);
 const gallery     = new S.GalleryService(artworkDao);
@@ -80,7 +79,6 @@ function go(view) {
   document.body.setAttribute('data-view', view);
   $$('.view').forEach(v => v.classList.toggle('active', v.id === `view-${view}`));
   $$('#topbar nav a').forEach(a => a.classList.toggle('active', a.dataset.view === view));
-  if (view === 'order')  OrderUI.render();
   if (view === 'studio') StudioUI.render();
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
@@ -140,95 +138,9 @@ const GalleryUI = {
     }
     node.querySelector('[data-order-id]').addEventListener('click', () => {
       Modal.close();
-      OrderUI.preselect(a.id);
       go('order');
     });
     Modal.open(node);
-  },
-};
-
-/* ============================  Order  ================================= */
-const OrderUI = {
-  _preselect: new Set(),
-  preselect(id) { this._preselect.add(id); },
-  render() {
-    const sel = $('#order-pieces');
-    sel.innerHTML = gallery.list({ sort: 'year-desc' }).map(a =>
-      `<option value="${a.id}" ${this._preselect.has(a.id) ? 'selected' : ''}>${escapeHtml(a.title)} — ${a.year} · ${escapeHtml(a.medium)}</option>`
-    ).join('');
-    this._preselect.clear();
-    this._applyMode();
-    this._renderHistory();
-  },
-  _applyMode() {
-    const form = $('#order-form');
-    if (!form) return;
-    const mode = form.elements['mode'] ? form.elements['mode'].value : 'existing';
-    form.querySelectorAll('[data-mode-field]').forEach(el => {
-      el.hidden = el.dataset.modeField !== mode;
-    });
-  },
-  _renderHistory() {
-    const list = $('#order-history');
-    const rows = orderDao.findAll().sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
-    if (rows.length === 0) {
-      list.innerHTML = '<li class="hint" style="background:transparent;border:none">No enquiries yet.</li>';
-      return;
-    }
-    list.innerHTML = rows.slice(0, 8).map(o => `
-      <li>
-        <div><strong>${escapeHtml(o.customer)}</strong> · <span class="meta">${escapeHtml(o.email)}</span></div>
-        <div class="meta">${new Date(o.createdAt).toLocaleString()}</div>
-        <div class="pieces"><strong>${o.mode === 'custom' ? 'Request:' : 'Pieces:'}</strong> ${o.pieceTitles.map(escapeHtml).join(' · ')}</div>
-        ${o.references && o.references.length ? `<div class="pieces"><strong>References:</strong> ${o.references.map(escapeHtml).join(' · ')}</div>` : ''}
-        ${o.message ? `<div class="pieces"><strong>Note:</strong> ${escapeHtml(o.message)}</div>` : ''}
-      </li>`).join('');
-  },
-  submit(form) {
-    const fd = new FormData(form);
-    const mode = String(fd.get('mode') || 'existing');
-    const pieces = Array.from(form.elements['pieces'].selectedOptions).map(o => o.value);
-    const fileInput = form.elements['references'];
-    const references = fileInput && fileInput.files ? Array.from(fileInput.files).map(f => f.name) : [];
-    try {
-      const customer = String(fd.get('customer') || '').trim();
-      const email    = String(fd.get('email') || '').trim();
-      if (customer.length < 2) throw new Ex.ValidationException('Please tell us your name', 'customer');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Ex.ValidationException('A valid e-mail is required', 'email');
-
-      let pieceTitles;
-      if (mode === 'custom') {
-        if (references.length === 0) throw new Ex.ValidationException('Upload at least one reference image for your personalized piece', 'references');
-        pieceTitles = ['Personalized commission'];
-      } else {
-        if (pieces.length === 0) throw new Ex.ValidationException('Pick at least one piece', 'pieces');
-        pieceTitles = pieces.map(id => {
-          const a = gallery.get(id);
-          return `${a.title} (${a.year})`;
-        });
-      }
-      const order = {
-        id: crypto.randomUUID(),
-        customer, email,
-        phone:   String(fd.get('phone')   || '').trim(),
-        country: String(fd.get('country') || '').trim(),
-        message: String(fd.get('message') || '').trim(),
-        mode,
-        pieces: mode === 'custom' ? [] : pieces,
-        pieceTitles, references,
-        createdAt: new Date().toISOString(),
-      };
-      // Persist via the same DAO contract used everywhere else.
-      const rows = JSON.parse(localStorage.getItem('arte-de-la-montana::orders') || '[]');
-      rows.push(order);
-      localStorage.setItem('arte-de-la-montana::orders', JSON.stringify(rows));
-      Toast.success(`Thank you, ${customer.split(' ')[0]} — the studio will be in touch.`);
-      form.reset();
-      OrderUI._renderHistory();
-    } catch (e) {
-      if (e instanceof Ex.GalleryException) Toast.error(e.message);
-      else throw e;
-    }
   },
 };
 
@@ -372,7 +284,7 @@ const StudioUI = {
       tr.querySelector('[data-action="edit"]')?.addEventListener('click', () => StudioUI._openArtworkForm(gallery.get(id)));
       tr.querySelector('[data-action="delete"]')?.addEventListener('click', () => {
         if (!confirm('Delete this artwork?')) return;
-        try { gallery.delete(id); Toast.success('Deleted'); GalleryUI.render(); OrderUI.render(); StudioUI.render(); }
+        try { gallery.delete(id); Toast.success('Deleted'); GalleryUI.render(); StudioUI.render(); }
         catch (e) { Toast.error(e.message); }
       });
     });
@@ -429,7 +341,7 @@ const StudioUI = {
         if (existing) { gallery.update(existing.id, patch); Toast.success('Saved'); }
         else          { gallery.create(patch);             Toast.success('Added'); }
         Modal.close();
-        GalleryUI.render(); OrderUI.render(); StudioUI.render();
+        GalleryUI.render(); StudioUI.render();
       } catch (e) {
         if (e instanceof Ex.GalleryException) Toast.error(e.message);
         else throw e;
@@ -441,7 +353,6 @@ const StudioUI = {
 /* ============================  Bootstrap  ============================= */
 document.addEventListener('DOMContentLoaded', () => {
   GalleryUI.render();
-  OrderUI.render();
 
   // Internal navigation (header + content links)
   document.body.addEventListener('click', ev => {
@@ -454,18 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#modal-root .modal-backdrop').addEventListener('click', () => Modal.close());
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !$('#modal-root').hidden) Modal.close();
-  });
-
-  // Order form
-  $('#order-form').addEventListener('submit', ev => {
-    ev.preventDefault();
-    OrderUI.submit(ev.currentTarget);
-  });
-  $('#order-form').addEventListener('change', ev => {
-    if (ev.target.name === 'mode') OrderUI._applyMode();
-  });
-  $('#order-form').addEventListener('reset', () => {
-    setTimeout(() => OrderUI.render(), 0);
   });
 
   // Initial hash routing. `#studio` is intentionally undocumented — it is the

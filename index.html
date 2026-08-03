@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arte de la Montaña</title>
   <link rel="icon" href="assets/andean-bear-icon.png" />
-  <link rel="stylesheet" href="css/styles.css?v=2026-06-08b" />
+  <link rel="stylesheet" href="css/styles.css?v=2026-08-02" />
 </head>
 <body>
   <header id="topbar">
@@ -97,55 +97,21 @@
       <img src="assets/title.png" alt="Customize" class="order-title" />
       <h2>Order a piece</h2>
       <p class="lede">
-        Pick one or more works from the catalogue, or request your own
-        personalized piece by uploading reference images. Submit the form and the
-        studio will reply to your e-mail. No payment is taken here.
+        Interested in a piece from the catalogue, or in a personalized
+        commission? Contact me directly and I will get back to you. No payment
+        is taken online.
       </p>
 
-      <form id="order-form" novalidate>
-        <fieldset class="order-mode">
-          <label><input type="radio" name="mode" value="existing" checked /> Choose an existing piece</label>
-          <label><input type="radio" name="mode" value="custom" /> Request a personalized piece</label>
-        </fieldset>
-
-        <div class="form-grid">
-          <label>Your name
-            <input name="customer" required minlength="2" />
-          </label>
-          <label>E-mail
-            <input name="email" type="email" required />
-          </label>
-          <label>Phone (optional)
-            <input name="phone" />
-          </label>
-          <label>Shipping country
-            <input name="country" placeholder="e.g. Spain" />
-          </label>
-
-          <label class="full" data-mode-field="existing">Pieces you are interested in
-            <select name="pieces" id="order-pieces" multiple size="10"></select>
-            <small>Hold ⌘ / Ctrl to select multiple.</small>
-          </label>
-
-          <label class="full" data-mode-field="custom" hidden>Reference images
-            <input name="references" id="order-references" type="file" accept="image/*" multiple />
-            <small>Upload photos or sketches to guide your commission.</small>
-          </label>
-
-          <label class="full">Message
-            <textarea name="message" rows="4" placeholder="Anything we should know: subject, dimensions, medium, deadline…"></textarea>
-          </label>
-        </div>
-
-        <div class="actions">
-          <button type="reset">Clear</button>
-          <button class="primary" type="submit">Send enquiry</button>
-        </div>
-      </form>
-
-      <h3>Recent enquiries</h3>
-      <p class="hint">Stored locally in your browser so you can come back to them.</p>
-      <ol id="order-history" class="orders"></ol>
+      <div class="contact-cards">
+        <a class="contact-card" href="https://www.instagram.com/artedelamontana" target="_blank" rel="noopener">
+          <span class="contact-label">Instagram</span>
+          <span class="contact-value">@artedelamontana</span>
+        </a>
+        <a class="contact-card" href="https://wa.me/34647773731" target="_blank" rel="noopener">
+          <span class="contact-label">WhatsApp</span>
+          <span class="contact-value">+34 647 773731</span>
+        </a>
+      </div>
     </section>
   </main>
 
@@ -170,6 +136,6 @@
   <script src="js/dao.js?v=2026-06-08"></script>
   <script src="js/services.js?v=2026-06-08"></script>
   <script src="js/catalog.js?v=2026-06-08"></script>
-  <script src="js/app.js?v=2026-06-08"></script>
+  <script src="js/app.js?v=2026-08-02"></script>
 </body>
 </html>
